@@ -11,9 +11,17 @@ SSM实现的在线考试系统
 
 ### 效果图
 
-![](G:\2019project\gits\ssm-Online_Examination\img\home.png)
+![](https://github.com/agamgn/ssm-Online_Examination/blob/master/img/home.png)
 
-![](G:\2019project\gits\ssm-Online_Examination\img\adminhome.png)
+![](https://github.com/agamgn/ssm-Online_Examination/blob/master/img/adminhome.png)
+
+![](https://github.com/agamgn/ssm-Online_Examination/blob/master/img/studentexam.png)
+
+![](https://github.com/agamgn/ssm-Online_Examination/blob/master/img/studenthome.png)
+
+![](https://github.com/agamgn/ssm-Online_Examination/blob/master/img/teacherhome.png)
+
+![](https://github.com/agamgn/ssm-Online_Examination/blob/master/img/teachersearch.png)
 
 ###  
 
