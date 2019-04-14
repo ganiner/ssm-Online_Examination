@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ganiner.dao.CustomerMapper">
+
+    <!-- resultMap用于实现映射结果集 -->
+    <resultMap id="BaseResultMap" type="cn.ganiner.pojo.Customer">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 客户信息保存的方法 -->
+    <insert id="create" parameterType="Customer">
+        insert into
+        tb_customer(
+          name,
+          telephone,
+          address,
+          remark)
+        values(
+          #{name},
+          #{telephone},
+          #{address},
+          #{remark}
+        );
+    </insert>
+
+    <!-- 根据id删除信息的方法 -->
+    <delete id="delete" parameterType="Long">
+        delete from tb_customer where id = #{id}
+    </delete>
+
+    <!-- 根据客户id查询客户信息的方法 -->
+    <select id="findById" parameterType="Long" resultType="Customer">
+        select * from tb_customer where id = #{id}
+    </select>
+
+    <!-- 更新客户信息的方法 -->
+    <update id="update" parameterType="Customer">
+        update tb_customer set
+            id = #{id},
+            name = #{name},
+            telephone = #{telephone},
+            address = #{address},
+            remark = #{remark}
+        where id = #{id}
+    </update>
+
+    <!-- 分页-条件查询 -->
+    <select id="findByPage" parameterType="cn.ganiner.pojo.Customer"  >
+    SELECT * FROM tb_customer WHERE 1=1
+    <if test="name != null">
+        AND name LIKE CONCAT('%', #{name}, '%')
+    </if>
+    <if test="telephone != null">
+        AND telephone LIKE CONCAT('%', #{telephone}, '%')
+    </if>
+    </select>
+
+    <!--&lt;!&ndash; 分页查询 &ndash;&gt;-->
+    <!--<select id="findByPage" parameterType="Map" resultMap="BaseResultMap">-->
+        <!--select * from customer-->
+        <!--<if test="start != null and size != null">-->
+            <!--limit #{start},#{size}-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash; 多条件查询 &ndash;&gt;-->
+    <!--<select id="findCondition" parameterType="Map" resultMap="BaseResultMap">-->
+        <!--&lt;!&ndash; where 1=1 可以保证where后的语句永远是正确的-->
+            <!--因为在where后的动态SQL可能会执行也可能不会不会执行，如果没有执行，那么where后将跟一个空值，那么显然这样是会报错的-->
+        <!--&ndash;&gt;-->
+        <!--select * from customer where 1 = 1-->
+        <!--<if test="c_name != null and c_name != ''">-->
+            <!--and c_name like concat('%', #{c_name}, '%')-->
+        <!--</if>-->
+        <!--<if test="c_telephone != null and c_telephone != ''">-->
+            <!--and c_telephone like concat('%', #{c_telephone}, '%')-->
+        <!--</if>-->
+        <!--&lt;!&ndash; 我们通过在Service中的计算决定了我们每次请求的数据应该从那一页开始，那一页结束 &ndash;&gt;-->
+        <!--<if test="start != null and size != null">-->
+            <!--limit #{start},#{size}-->
+        <!--</if>-->
+    <!--</select>-->
+
+</mapper>

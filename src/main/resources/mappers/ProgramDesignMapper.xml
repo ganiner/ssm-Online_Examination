@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ganiner.dao.ProgramDesignMapper">
+    <select id="ProgramDesignAll" resultType="ProgramDesign">
+        select * from tk_pgdesign
+    </select>
+    <select id="ByProgramDesignId" parameterType="Long" resultType="ProgramDesign">
+        select * from tk_pgdesign where id =#{id}
+    </select>
+    <delete id="DeleteProgramDesign" parameterType="Long">
+        DELETE FROM tk_pgdesign WHERE id=#{id}
+    </delete>
+    <insert id="CreateProgramDesign" parameterType="ProgramDesign">
+        insert into tk_pgdesign(content,answer,chapter,chaptertwo,analysis,difficulty)
+        values (#{content},#{answer},#{chapter},#{chaptertwo},#{analysis},#{difficulty})
+    </insert>
+    <update id="updateProgramDesign" parameterType="ProgramDesign">
+        update tk_pgdesign set
+            id = #{id},
+            content = #{content},
+            answer= #{answer},
+            analysis = #{analysis},
+              chapter = #{chapter},
+            chaptertwo= #{chaptertwo},
+            difficulty= #{difficulty}
+        where id = #{id}
+    </update>
+</mapper>

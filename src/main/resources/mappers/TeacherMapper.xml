@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ganiner.dao.TeacherMapper">
+
+    <!-- 用户登录的方法 id与方法名中相同  持久层-->
+    <select id="login" parameterType="cn.ganiner.pojo.Teacher" resultType="Teacher">
+        select * from teacher where username = #{username}
+    </select>
+    <!-- 根据客户id查询客户信息的方法 -->
+    <select id="findById" parameterType="Long" resultType="Teacher">
+        select * from teacher where id = #{id}
+    </select>
+
+    <!-- 更新老师信息的方法 -->
+    <update id="update" parameterType="Teacher">
+        update teacher set
+            id = #{id},
+            username = #{username},
+            password= #{password}
+        where id = #{id}
+    </update>
+    <!--批量删除老师-->
+    <delete id="deleteManyTeacher" parameterType="String">
+        delete from teacher where id in
+        (${_parameter})
+    </delete>
+    <!-- 更新老师信息的方法 -->
+    <update id="Upteacer" parameterType="Teacher">
+        update teacher set
+
+            password= #{password}
+        where id = #{id}
+    </update>
+</mapper>

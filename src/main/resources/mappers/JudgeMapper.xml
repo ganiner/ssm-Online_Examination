@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ganiner.dao.JudgeMapper">
+    <select id="AllJudge" resultType="Judge">
+            select * from tk_judge
+      </select>
+
+    <select id="findJudgeId" parameterType="Long" resultType="Judge">
+        select  * from tk_judge  where id = #{id}
+    </select>
+
+    <delete id="DeleteJudge" >
+        delete  from  tk_judge WHERE  id = #{id}
+    </delete>
+
+    <insert id="CreateJudge" parameterType="Judge">
+        insert into tk_judge(content,answer,chapter,chaptertwo,analysis,difficulty)
+        values (#{content},#{answer},#{chapter},#{chaptertwo},#{analysis},#{difficulty})
+    </insert>
+
+    <!-- 更新的方法 -->
+    <update id="UpdateJudge" parameterType="Judge">
+        update tk_judge set
+            id = #{id},
+            content = #{content},
+            answer= #{answer},
+            analysis = #{analysis},
+              chapter = #{chapter},
+            chaptertwo= #{chaptertwo},
+            difficulty= #{difficulty}
+        where id = #{id}
+    </update>
+    <!--批量删除选择题-->
+    <delete id="deleteManyJudge" parameterType="String">
+        delete from tk_judge where id in
+        (${_parameter})
+    </delete>
+</mapper>

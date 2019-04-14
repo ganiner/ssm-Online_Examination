@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ganiner.dao.UserMapper">
+
+    <!-- 用户登录的方法 id与方法名中相同  持久层-->
+     <select id="login" parameterType="cn.ganiner.pojo.User" resultType="User">
+        select * from tb_user where username = #{username}
+    </select>
+
+    <!-- 添加管理员-->
+    <insert id="CreateAdmin" parameterType="User">
+        insert into tb_user( username,password) values( #{username},#{password})
+    </insert>
+    <update id="updateuser" parameterType="User">
+        update tb_user set
+            password= #{password}
+        where id = #{id}
+    </update>
+    <!-- -查询 -->
+    <select id="findTeacherAll" resultType="cn.ganiner.pojo.Teacher">
+        select * from teacher
+    </select>
+
+    <!-- 保存 -->
+    <insert id="create" parameterType="Teacher">
+        insert into
+        teacher(
+          username,
+          major,
+          level,
+            mail,
+        password)
+        values(
+          #{username},
+          #{major},
+          #{level},
+          #{mail},
+          #{password}
+        );
+    </insert>
+
+    <!-- 根据id删除信息的方法 -->
+    <delete id="delete" parameterType="Long">
+        delete from teacher where id = #{id}
+    </delete>
+
+    <!-- 根据id查询teacher信息的方法 -->
+    <select id="findById" parameterType="Long" resultType="Teacher">
+        select * from teacher where id = #{id}
+    </select>
+
+    <!-- 更新老师信息的方法 -->
+    <update id="update" parameterType="Teacher">
+        update teacher set
+            id = #{id},
+            username = #{username},
+            major = #{major},
+            level = #{level},
+            mail = #{mail},
+            password= #{password}
+        where id = #{id}
+    </update>
+
+    <!-- 一对多查询 -->
+    <resultMap type="Point1" id="categoryBean">
+        <id column="cid" property="id" />
+        <result column="cname" property="pointname" />
+        <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+        <collection property="point2" ofType="Point2">
+            <id column="pid" property="bid" />
+            <result column="pname" property="pname" />
+        </collection>
+    </resultMap>
+    <select id="findPoint1All" resultMap="categoryBean">
+            select c.*, p.* ,c.id 'cid', p.bid 'pid', c.pointname 'cname', p.pname 'pname'
+            from Point1 c
+            left join point2 p on c.id = p.aid
+       </select>
+    <!-- 保存point1 -->
+    <insert id="createpoint1" parameterType="Point1">
+        insert into point1( pointname) values( #{pointname})
+    </insert>
+    <!--删除poin1-->
+    <delete id="deletep1" parameterType="Long">
+        delete from point2 where aid = #{id}
+    </delete>
+
+    <delete id="deletepp1" parameterType="Long">
+       delete from point1 where id= #{id}
+    </delete>
+    <!--删除poin2-->
+    <delete id="deletep2" parameterType="String">
+        delete from point2 where pname = #{chaptertwo}
+    </delete>
+    <!-- 保存point2 -->
+    <insert id="createpoint2" parameterType="Point2">
+        insert into point2( pname,aid) values( #{pname},#{aid})
+    </insert>
+    <!-- point1查询 -->
+    <select id="Point1All" resultType="Point1">
+        select * from point1
+    </select>
+  <!--所有选择题-->
+    <select id="findChoiceAll"  resultType="cn.ganiner.pojo.Tk.Choice">
+        select * from tk_choice
+    </select>
+    <select id="createchoice" resultType="cn.ganiner.pojo.Tk.Choice">
+        insert into tk_choice(content, Aoption, Boption, Coption, Doption, answer, analysis, chapter, chaptertwo,difficulty)
+        value (#{content}, #{aoption}, #{boption}, #{coption}, #{doption},#{answer},#{analysis},#{chapter},#{chaptertwo},#{difficulty})
+    </select>
+    <!-- 根据id查选择题-->
+    <select id="findBychId" parameterType="Long" resultType="cn.ganiner.pojo.Tk.Choice">
+        select * from tk_choice where id = #{id}
+    </select>
+    <!-- 更新选择题的方法 -->
+    <update id="updatech" parameterType="Choice">
+        update tk_choice set
+            id = #{id},
+            content= #{content}, aoption =#{aoption},
+            boption = #{boption},coption= #{coption},
+            doption= #{doption}, answer = #{answer},
+            analysis =#{analysis},chapter =#{chapter},
+            chaptertwo =#{chaptertwo},difficulty = #{difficulty}
+        where id = #{id}
+    </update>
+    <!--单个删除选择-->
+    <delete id="deletech" parameterType="Long">
+        delete from tk_choice where id = #{id}
+    </delete>
+    <!--所有选择题-->
+    <select id="findreadprogramAll"  resultType="cn.ganiner.pojo.Tk.ReadProgram">
+        select * from  readprogram
+    </select>
+    <select id="findUsername" parameterType="String" resultType="User">
+        select * from  tb_user where username =#{username}
+    </select>
+    <!--批量删除选择题-->
+    <delete id="deleteManyChoice" parameterType="String">
+        delete from tk_choice where id in
+        (${_parameter})
+    </delete>
+
+</mapper>

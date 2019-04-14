@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ganiner.dao.BlankMapper">
+    <!--&lt;!&ndash; 一对多查询 &ndash;&gt;-->
+    <!--<resultMap type="Blank" id="categoryBean">-->
+        <!--<id column="id" property="id" />-->
+        <!--<result column="content" property="content" />-->
+        <!--<result column="analysis" property="analysis" />-->
+        <!--<result column="chapter" property="chapter" />-->
+        <!--<result column="chaptertwo" property="chaptertwo" />-->
+        <!--<result column="difficulty" property="difficulty" />-->
+        <!--&lt;!&ndash; property: 指的是集合属性的值, ofType：指的是集合中元素的类型 &ndash;&gt;-->
+        <!--<collection property="answer" ofType="Answer">-->
+            <!--<id column="answer_id" property="answer_id" />-->
+            <!--<result column="answer" property="answer" />-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+    <select id="findBlankAll" resultType="Blank">
+            select *from tk_blank
+       </select>
+    <select id="findBlankId" parameterType="Long" resultType="Blank">
+        select  * from tk_blank  where id = #{id}
+    </select>
+    <delete id="DeleteBlank" >
+        delete  from  tk_blank WHERE  id = #{id}
+    </delete>
+    <insert id="CreateBlank" parameterType="Blank">
+        insert into tk_blank(content,answer,chapter,chaptertwo,analysis,difficulty)
+        values (#{content},#{answer},#{chapter},#{chaptertwo},#{analysis},#{difficulty})
+    </insert>
+    <!-- 更新的方法 -->
+    <update id="UpdateBlank" parameterType="Blank">
+        update tk_blank set
+            id = #{id},
+            content = #{content},
+            answer= #{answer},
+            analysis = #{analysis},
+              chapter = #{chapter},
+            chaptertwo= #{chaptertwo},
+            difficulty= #{difficulty}
+        where id = #{id}
+    </update>
+</mapper>

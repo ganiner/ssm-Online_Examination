@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ganiner.dao.ReadProgramMapper">
+    <!-- 读程序写结果查询 -->
+    <select id="ReadProgramAll" resultType="ReadProgram">
+        select * from tk_readpg
+    </select>
+    <select id="ByReadProgramId" parameterType="Long" resultType="ReadProgram">
+        select * from tk_readpg where id = #{id}
+    </select>
+    <delete id="DeleteReadProgram" parameterType="Long" >
+        DELETE FROM tk_readpg  WHERE id = #{id}
+    </delete>
+    <insert id="CreateReadProgram" parameterType="ReadProgram">
+        insert into tk_readpg(content,answer,chapter,chaptertwo,analysis,difficulty)
+        values (#{content},#{answer},#{chapter},#{chaptertwo},#{analysis},#{difficulty})
+    </insert>
+    <!-- 更新的方法 -->
+    <update id="updateReadProgram" parameterType="ReadProgram">
+        update tk_readpg set
+            id = #{id},
+            content = #{content},
+            answer= #{answer},
+            analysis = #{analysis},
+              chapter = #{chapter},
+            chaptertwo= #{chaptertwo},
+            difficulty= #{difficulty}
+        where id = #{id}
+    </update>
+</mapper>

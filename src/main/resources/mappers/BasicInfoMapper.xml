@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ganiner.dao.BasicInfoMapper">
+    <select id="findAll" parameterType="Long" resultType="Semester">
+        select seid,sename from semester
+    </select>
+    <select id="findMaAll" parameterType="Long" resultType="Major">
+        select maid,maname from major where seid = #{seid}
+    </select>
+    <select id="findCiAll" parameterType="Long" resultType="Blass">
+        select cid,cname from class where maid = #{maid}
+    </select>
+    <!--update操作-->
+    <update id="UpSemester" parameterType="Semester">
+        update semester set
+            sename= #{sename}
+        where seid = #{seid}
+    </update>
+    <update id="UpMajor" parameterType="Major">
+        update major set
+            maname= #{maname}
+        where maid = #{maid}
+    </update>
+    <update id="UpBlass" parameterType="Blass">
+        update class set
+            cname= #{cname}
+        where cid = #{cid}
+    </update>
+
+
+    <insert id="CreateSemester" parameterType="Semester">
+        insert into semester(sename) values (#{sename})
+    </insert>
+    <!--批量删除-->
+    <delete id="deleteSemester" parameterType="int">
+        delete from semester where seid in
+        <foreach item="seid" collection="array"  separator=",">
+             #{seid}
+        </foreach>
+    </delete>
+    <insert id="CreateMajor" parameterType="Major">
+        insert into major(maname,seid) values (#{maname},#{seid})
+    </insert>
+    <insert id="CreateBlass" parameterType="Blass">
+        insert into class(cname,maid) values (#{cname},#{maid})
+    </insert>
+    <insert id="CreateStudent" parameterType="Student">
+        insert into student(username,password,classname,num) values (#{username},#{password},#{classname},#{num})
+    </insert>
+     <!-- 查找某个班级下的学生-->
+    <select id="findClass" parameterType="String" resultType="Student">
+        select id,username,password, num,classname from student where classname = #{classname} order by  id asc
+    </select>
+    <!--删除班级-->
+    <delete id="DeleteClass" parameterType="String">
+        DELETE FROM class WHERE cname=#{cname}
+    </delete>
+    <!--删除专业-->
+    <delete id="DeleteMajor" parameterType="Long">
+        DELETE FROM major WHERE maid=#{maid}
+    </delete>
+    <!--删除学年-->
+    <delete id="DeleteYear" parameterType="Long">
+        DELETE FROM semester WHERE seid=#{seid}
+    </delete>
+
+
+    <select id="AllDepart"  resultType="Depart">
+        select * from depart
+    </select>
+    <delete id="deleteDepart" parameterType="int">
+        DELETE FROM depart WHERE id=#{id}
+    </delete>
+    <insert id="InsertDepart" parameterType="Depart">
+        insert into depart(depart) values (#{depart})
+    </insert>
+    <!-- 更新depart的方法 -->
+    <update id="updateDepart" parameterType="Depart">
+        update depart set
+            depart= #{depart}
+        where id = #{id}
+    </update>
+
+
+    <select id="AllSit"  resultType="Sit">
+        select * from sit
+    </select>
+    <delete id="deleteSit" parameterType="int">
+        DELETE FROM sit WHERE id=#{id}
+    </delete>
+    <insert id="InsertSit" parameterType="Sit">
+        insert into sit(sit) values (#{sit})
+    </insert>
+    <!-- 更新depart的方法 -->
+    <update id="updateSit" parameterType="Sit">
+        update sit set
+            sit= #{sit}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,40 @@
+ul {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+form {
+	margin: 0;
+	padding: 0;
+}
+html,
+body {
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	font-size: 12px;
+	font-family: Microsoft YaHei ;
+	SimSun:Arial, Helvetica, sans-serif;
+}
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+img {
+	border: none;
+}

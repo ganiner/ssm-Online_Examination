@@ -1,0 +1,58 @@
+.edtitable {
+	width: 90%;
+	margin: 20px auto;
+	border-collapse: collapse;
+	border: 1px #aaa solid;
+	text-align: center;
+	table-layout: fixed;
+}
+.edtitable thead tr{
+	background: #D5D5D5;
+}
+.edtitable tr {
+	border: 1px #aaa solid;
+}
+.edtitable tr td input{
+}
+.edtitable tr th,
+td {
+	border: 1px #aaa solid;
+	height: 40px;
+	min-width: 50px;
+	/*使表格列宽度相等*/
+}
+.edtitable tr .del-col {
+}
+.edtitable tr a {
+	color: #000000;
+}
+.edtitable .append-row {
+	background: #D5D5D5!important;
+}
+.edtitable .append-row td {
+	padding-right: 2.7%;
+}
+/*
+.edtitable tbody tr:nth-child(odd) td,
+.edtitable tbody tr:nth-child(odd) th {
+	background-color: #ECE9D8;
+}*/
+#addBtn{
+	background: #007bb6;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #fff;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+}
+.edtitable tr input{
+	background: none;
+	border: none;
+}

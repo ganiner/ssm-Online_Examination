@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ganiner.dao.StudentMapper">
+
+
+    <resultMap type="cn.ganiner.pojo.Student" id="BaseResultMap">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="classname" property="classname"  />
+        <result column="num" property="num"  />
+    </resultMap>
+    <sql id="Base_Column_List" >
+      id, username, password,classname,num
+  </sql>
+    <!-- 用户登录的方法 id与方法名中相同  持久层-->
+    <select id="login" parameterType="cn.ganiner.pojo.Student" resultType="Student">
+        select * from student where username = #{username}
+    </select>
+    <insert id="insertInfoBatch" parameterType="java.util.List">
+        insert into student (id, username, password,classname,num)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{id,jdbcType=INT},
+            #{userName,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR} ,
+            #{classname,jdbcType=VARCHAR},
+            #{num,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Long"  >
+        select *from student
+        where id = #{id}
+    </select>
+    <insert id="insert" parameterType="cn.ganiner.pojo.Student" >
+    insert into Student (id, username, password,classname,num)
+    values (#{id}, #{username}, #{password},
+            #{classname}, #{num})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="cn.ganiner.pojo.Student" >
+    update student
+    set username = #{username},
+      password = #{password},
+            classname = #{classname},
+      num = #{num}
+    where id = #{id}
+  </update>
+    <select id="ByClass" resultMap="BaseResultMap" parameterType="String">
+        select   * from student
+        where classname = #{classname} ORDER BY (num+0)ASC
+    </select>
+    <!--删除-->
+    <delete id="deleteStudent" parameterType="String">
+        delete from student where num = #{num}
+    </delete>
+
+    <update id="UpStudent" parameterType="cn.ganiner.pojo.Student" >
+    update student
+    set username = #{username},
+      password = #{password}
+    where num = #{num}
+  </update>
+    <insert id="CreatStu" parameterType="cn.ganiner.pojo.Student" >
+    insert into Student (id, username, password,classname,num)
+    values (#{id}, #{username}, #{password},
+            #{classname}, #{num})
+  </insert>
+    <select id="ByNum" resultType="Student" parameterType="String">
+        select   * from student
+        where num = #{num}
+    </select>
+    <update id="Updatestu" parameterType="cn.ganiner.pojo.Student" >
+    update student
+    set
+      password = #{password}
+    where id = #{id}
+  </update>
+    <select id="AllStudent"   parameterType="java.util.List"  resultType="Student">
+        select * from student
+        where id in
+        <foreach collection="list" index="index" item="item" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>
